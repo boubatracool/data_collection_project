@@ -28,7 +28,7 @@ def add_bg_from_local(image_file):
     )
 
 
-add_bg_from_local('background.jpg')
+add_bg_from_local('background41.jpg')
 
 # Page Principale
 st.title("Projet de Data Collection Groupe 5")
@@ -64,6 +64,7 @@ def load(dataframe, title, key, key1):
     st.markdown("""
     <style>
     div.stButton {text-align:center}
+    .st-emotion-cache-7ym5gk{width:200px}
     </style>""", unsafe_allow_html=True)
 
     if st.button(title, key1):
