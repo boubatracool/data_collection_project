@@ -1,16 +1,17 @@
 import base64
 
 import streamlit as st
-import streamlit.components.v1 as components
 import pandas as pd
-import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup as bs
 from appart_a_louer import scrap_appart_a_louer
 from appart_meuble import scrap_appart_meuble
 from terrain_a_vendre import srappe_terrain_a_vendre
 
+st.set_page_config(layout="wide")
 
 # Fonction Background
+
+
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
@@ -116,22 +117,33 @@ if option2 == "Fill the form":
 
 # Dashbaord
 if option2 == "Dashbord of the data":
-    appart_a_louer = scrap_appart_a_louer(option1)
-    appart_meuble = scrap_appart_meuble(option1)
-    terrain_a_vendre = srappe_terrain_a_vendre(option1)
+    col1, col2 = st.columns(2)
 
-    appart_a_louer['prix'] = appart_a_louer['prix'].astype('float')
-    appart_plus_chers = appart_a_louer.sort_values(by='prix', ascending=False)
-    appart_plus_chers = appart_plus_chers[:5]
-    
-    fig, ax = plt.subplots()
-    ax.bar(appart_plus_chers['adresse'], appart_plus_chers['prix'])
-    plt.xlabel('Article')
-    plt.ylabel('Prix')
-    plt.xticks(rotation=45)
-    plt.title('Appartement les plus chers')
-    plt.tight_layout()
+    with col1:
+        appart_a_louer = scrap_appart_a_louer(option1)
+        appart_a_louer['prix'] = pd.to_numeric(appart_a_louer['prix'])
+        appart_plus_chers = appart_a_louer.sort_values(
+            by='prix', ascending=False)
+        appart_plus_chers = appart_plus_chers[:5]
+        st.bar_chart(appart_plus_chers, x="adresse", y="prix")
 
-    st.pyplot(fig)
-    # st.bar_chart(appart_plus_chers, )
-    # st.bar_chart(appart_plus_chers, x="detail", y="prix")
+    with col2:
+        appart_meuble = scrap_appart_meuble(option1)
+        appart_meuble['prix'] = appart_meuble['prix'].astype('float')
+        appart_meuble_plus_chers = appart_meuble.sort_values(
+            by='prix', ascending=False)
+        appart_meuble_plus_chers = appart_plus_chers[:5]
+        st.bar_chart(appart_meuble_plus_chers, x="adresse", y="prix")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        terrain_a_vendre = srappe_terrain_a_vendre(option1)
+        terrain_a_vendre['prix'] = terrain_a_vendre['prix'].astype('float')
+        terrain_a_vendre_plus_chers = terrain_a_vendre.sort_values(
+            by='prix', ascending=False)
+        terrain_a_vendre_plus_chers = appart_plus_chers[:5]
+        st.bar_chart(terrain_a_vendre_plus_chers, x="adresse", y="prix")
+
+    with col2:
+        pass
