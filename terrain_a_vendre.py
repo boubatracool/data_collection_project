@@ -45,4 +45,5 @@ def srappe_terrain_a_vendre(nbr_pages=10):
 
         DF = pd.DataFrame(data)
         df = pd.concat([df, DF], axis=0).reset_index(drop=True)
+        time.sleep(2)
     return df
