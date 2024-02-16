@@ -120,30 +120,33 @@ if option2 == "Dashbord of the data":
     col1, col2 = st.columns(2)
 
     with col1:
+        st.markdown("#### 5 plus chers Appartements à louer")
         appart_a_louer = scrap_appart_a_louer(option1)
         appart_a_louer['prix'] = pd.to_numeric(appart_a_louer['prix'])
         appart_plus_chers = appart_a_louer.sort_values(
             by='prix', ascending=False)
         appart_plus_chers = appart_plus_chers[:5]
-        st.bar_chart(appart_plus_chers, x="adresse", y="prix")
+        st.bar_chart(appart_plus_chers, x="detail", y="prix")
 
     with col2:
+        st.markdown("#### 5 plus chers Appartements meublés")
         appart_meuble = scrap_appart_meuble(option1)
         appart_meuble['prix'] = appart_meuble['prix'].astype('float')
         appart_meuble_plus_chers = appart_meuble.sort_values(
             by='prix', ascending=False)
         appart_meuble_plus_chers = appart_plus_chers[:5]
-        st.bar_chart(appart_meuble_plus_chers, x="adresse", y="prix")
+        st.bar_chart(appart_meuble_plus_chers, x="detail", y="prix")
 
     col1, col2 = st.columns(2)
 
     with col1:
+        st.markdown("#### 5 plus chers Terrains à vendre")
         terrain_a_vendre = srappe_terrain_a_vendre(option1)
         terrain_a_vendre['prix'] = terrain_a_vendre['prix'].astype('float')
         terrain_a_vendre_plus_chers = terrain_a_vendre.sort_values(
             by='prix', ascending=False)
         terrain_a_vendre_plus_chers = appart_plus_chers[:5]
-        st.bar_chart(terrain_a_vendre_plus_chers, x="adresse", y="prix")
+        st.bar_chart(terrain_a_vendre_plus_chers, x="detail", y="prix")
 
     with col2:
         pass
