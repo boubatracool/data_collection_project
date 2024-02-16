@@ -134,7 +134,7 @@ if option2 == "Dashbord of the data":
         appart_meuble['prix'] = appart_meuble['prix'].astype('float')
         appart_meuble_plus_chers = appart_meuble.sort_values(
             by='prix', ascending=False)
-        appart_meuble_plus_chers = appart_plus_chers[:5]
+        appart_meuble_plus_chers = appart_meuble_plus_chers[:5]
         st.bar_chart(appart_meuble_plus_chers, x="detail", y="prix", color="#00FF00")
 
     col1, col2 = st.columns(2)
@@ -145,7 +145,7 @@ if option2 == "Dashbord of the data":
         terrain_a_vendre['prix'] = terrain_a_vendre['prix'].astype('float')
         terrain_a_vendre_plus_chers = terrain_a_vendre.sort_values(
             by='prix', ascending=False)
-        terrain_a_vendre_plus_chers = appart_plus_chers[:5]
+        terrain_a_vendre_plus_chers = terrain_a_vendre_plus_chers[:5]
         st.bar_chart(terrain_a_vendre_plus_chers, x="detail", y="prix", color="#FF0000")
 
     with col2:
